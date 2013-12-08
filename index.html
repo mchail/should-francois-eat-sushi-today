@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Should Francois Eat Sushi Today?
+	</title>
+	<style type="text/css">
+		#text {
+			font-family: "Andale Mono", AndaleMono, monospace;
+			font-size: 40px;
+			font-weight: 900;
+			display: inline-block;
+			text-align: center;
+		}
+	</style>
+</head>
+	<body>
+		<div id="text"></div>
+		<script type="text/javascript">
+			(function() {
+				var answers = {
+					0: "NO",
+					1: "YES",     // shipment Monday
+					2: "YES",
+					3: "NO",
+					4: "NO",
+					5: "YES",     // shipment Friday
+					6: "YES"
+				}
+				var text = document.getElementById('text');
+
+				writeAnswer();
+				resizeText();
+
+				window.onresize = resizeText;
+
+				function writeAnswer() {
+					var answer = getAnswer();
+					text.innerHTML = answer;
+				}
+
+				function getAnswer() {
+					var today = new Date();
+					var dayOfWeek = today.getDay();
+					return answers[dayOfWeek];
+				}
+
+				function resizeText() {
+					var wWidth = window.innerWidth,
+					    wHeight = window.innerHeight,
+					    tWidth = text.clientWidth,
+					    tHeight = text.clientHeight,
+					    currentSize = parseFloat(window.getComputedStyle(text, null).getPropertyValue('font-size'));
+
+					var byWidth = wWidth / tWidth * currentSize,
+					    byHeight = wHeight / tHeight * currentSize;
+
+					// take the smaller of the two
+					var newSize = byWidth < byHeight ? byWidth : byHeight;
+					text.style.fontSize = newSize + "px";
+				}
+			})();
+		</script>
+	</body>
+</html>
